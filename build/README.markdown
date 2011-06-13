@@ -25,27 +25,20 @@ Each site's configuration will likely be a little different. I've found it usefu
 		load.php # Includes config.php. Handles enqueueing assets/bundles into WordPress.
 		build/
 			build.php # Includes config.php. The command-line build script.
-			Builder.php # This class keeps track of all the assets, bundles.
+			Bundler.php # This class keeps track of all the assets, bundles, and has a method to write files.
 
 Setting up bundles is easy using the `define_bundle()` and `add_to_bundle()` methods. For example:
 	
-	$builder = new Bundler
-	$builder->define_bundle($bundle, 'common/js/build.js');
-	$builder->add_to_bundle($bundle, 'common/js/hoverIntent.js');
-	
-	$builder->bundle('my-built-file-name.css', array(
-		'one.css',
-		'two.css',
-		'three.css'
-	));
+	$bundler = new Bundler('/asset/path/prefix/');
+	$bundler->define('bundle_name', 'path/to/built/file.css');
+	$bundler->add_to('bundle_name', 'common/css/base.css');
+	$bundler->add_to('bundle_name', 'common/css/main.css', array('../img/', '../../../common/img/'));
 
-For the purpose of this project, the bundle method is called automatically based on the array found in assets/config.php. So go there and config it!
-
-In the command line,
+To write the files, In the command line,
 
 	$ cd /path/to/build.php
 	
-	then...
+then...
 	
 	$ php build.php
 

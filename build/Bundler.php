@@ -51,8 +51,10 @@ class Bundler {
 
 		return $keys;
 	}
-	
-	/* Call this last. It writes the resulting file */
+
+	/**
+	 * Call this from the build script. It writes the resulting files.
+	 */
 	public function write_files() {
 		foreach ($this->bundles as $bundle) {
 			$built = '';
