@@ -1,6 +1,6 @@
 <?php
-/* Combine files together. Horay! */
-class Builder {
+/* Combine files together. Hooray! */
+class Bundler {
 	public $asset_path;
 	public $bundles = array();
 	

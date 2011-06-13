@@ -1,4 +1,4 @@
-build.php is a very simple build script designed to take groups of CSS or JS files and combine them into a built file.
+`build.php` is a very simple command line build script designed to take groups of CSS or JS files and combine them into a built file.
 
 ## What it has going for it
 
@@ -10,16 +10,29 @@ build.php is a very simple build script designed to take groups of CSS or JS fil
 
 `build.php` does not:
 
-- Try to do smart path rewriting for URLs, by itself. You can, however, specify a list of string replacements for each bundle.
-- Do any kind of path error checking -- it's up to you to make sure things make sense.
-- Strip whitespace characters
-- Strip comments
-- Make you coffee
+- ...Try to do smart URL rewriting by itself. You can, however, specify a list of string replacements for each bundle.
+- ...Do any kind of path error checking -- it's up to you to make sure things make sense.
+- ...Strip whitespace characters.
+- ...Strip comments.
+- ...Make you coffee.
 
 ## How to use it
 
-First, set up some bundles using the bundle() method. For example, if your Builder instance is called $builder:
+Each site's configuration will likely be a little different. I've found it useful to structure assets like this:
 
+	assets/
+		config.php # Includes Builder.php. Defines the bundles.
+		load.php # Includes config.php. Handles enqueueing assets/bundles into WordPress.
+		build/
+			build.php # Includes config.php. The command-line build script.
+			Builder.php # This class keeps track of all the assets, bundles.
+
+Setting up bundles is easy using the `define_bundle()` and `add_to_bundle()` methods. For example:
+	
+	$builder = new Bundler
+	$builder->define_bundle($bundle, 'common/js/build.js');
+	$builder->add_to_bundle($bundle, 'common/js/hoverIntent.js');
+	
 	$builder->bundle('my-built-file-name.css', array(
 		'one.css',
 		'two.css',
