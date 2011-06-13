@@ -5,7 +5,7 @@ class Bundler {
 	public $bundles = array();
 	
 	/**
-	 * @param string $asset_path the full URL to the assets directory where the files can be found.
+	 * @param string $asset_path the full path to the assets directory where the files can be found.
 	 */
 	public function __construct($asset_path = '') {
 		$this->asset_path = $asset_path;
@@ -16,11 +16,17 @@ class Bundler {
 	 * @param string $built_file the file name of the resulting built file
 	 * @param array $files the array of file names you want to combine into the built file
 	 */
-	public function define_bundle($bundle, $built_file) {
+	public function define($bundle, $built_file) {
 		$this->bundles[$bundle]['build'] = $built_file;
 	}
 	
-	public function add_to_bundle($bundle, $file, $replacements = array()) {
+	/**
+	 * Add a file to a bundle
+	 * @param string $bundle Bundle key
+	 * @param string $file File URL
+	 * @param array $replacements string replacements for the file
+	 */
+	public function add($bundle, $file, $replacements = array()) {
 		$this->bundles[$bundle]['src'][$file]['replacements'] = $replacements;
 	}
 	
