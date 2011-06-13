@@ -5,10 +5,10 @@ class Bundler {
 	public $bundles = array();
 	
 	/**
-	 * @param string $asset_path the full path to the assets directory where the files can be found.
+	 * @param string $asset_path_prefix a path that asset paths should be prefixed with in order to find them on the file system.
 	 */
-	public function __construct($asset_path = '') {
-		$this->asset_path = $asset_path;
+	public function __construct($asset_path_prefix = '') {
+		$this->asset_path = $asset_path_prefix;
 	}
 
 	/**
@@ -26,11 +26,11 @@ class Bundler {
 	 * @param string $file File URL
 	 * @param array $replacements string replacements for the file
 	 */
-	public function add($bundle, $file, $replacements = array()) {
+	public function add_to($bundle, $file, $replacements = array()) {
 		$this->bundles[$bundle]['src'][$file]['replacements'] = $replacements;
 	}
 	
-	public function get_bundle_built($bundle) {
+	public function get_bundled_file($bundle) {
 		$bundle = $this->bundles[$bundle];
 		if (!isset($bundle)) {
 			throw new Exception('Bundle "'.$bundle.'" doesn\'t exist', 1);
@@ -38,7 +38,7 @@ class Bundler {
 		return $bundle['build'];
 	}
 	
-	public function get_bundle_src($bundle = '') {
+	public function get_original_files($bundle = '') {
 		$keys = array();
 		$bundle = $this->bundles[$bundle];
 		if (!isset($bundle)) {

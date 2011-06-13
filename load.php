@@ -21,20 +21,20 @@ $bundle = $blog['slug'] ? $blog['slug'] . 'css' : 'thechivecss';
 $asset_url = trailingslashit(get_bloginfo('template_url')).'assets/';
 
 if (SDAC_PRODUCTION) {
-	$file = $builder->get_bundle_built($bundle);
+	$file = $bundler->get_bundled_file($bundle);
 	wp_enqueue_style($bundle, $asset_url . $file, array(), SDAC_VER, 'screen');
 
 	$bundle = 'commonjs';
-	$file = $builder->get_bundle_built($bundle);
+	$file = $bundler->get_bundled_file($bundle);
 	wp_enqueue_script($bundle, $asset_url . $file, array('jquery'), SDAC_VER);
 }
 else {
-	$files = $builder->get_bundle_src($bundle);
+	$files = $bundler->get_original_files($bundle);
 	foreach ($files as $file) {
 		wp_enqueue_style($file, $asset_url . $file, array(), SDAC_VER, 'screen');
 	}
 	
-	$files = $builder->get_bundle_src('commonjs');
+	$files = $bundler->get_original_files('commonjs');
 	foreach ($files as $file) {
 		wp_enqueue_script($file, $asset_url . $file, array('jquery'), SDAC_VER);
 	}
