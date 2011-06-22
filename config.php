@@ -30,4 +30,6 @@ $bundle = 'thethrottlecss';
 $bundler->define($bundle, 'thethrottle/css/build.css');
 $bundler->add_to($bundle, 'common/css/main.css', array('../img/' => '../../common/img/'));
 $bundler->add_to($bundle, 'thethrottle/css/main.css');
+
+$bundler->add_to_build_profiles();
 ?>

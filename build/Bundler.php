@@ -3,12 +3,24 @@
 class Bundler {
 	public $asset_path;
 	public $bundles = array();
+	protected static $build_profiles;
 	
 	/**
 	 * @param string $asset_path_prefix a path that asset paths should be prefixed with in order to find them on the file system.
 	 */
 	public function __construct($asset_path_prefix = '') {
 		$this->asset_path = $asset_path_prefix;
+	}
+	
+	/**
+	 * We need an easy way to send an instances of Bundler to the build script.
+	 * This function, when run, will set the current instance as the instance to be built by the build script.
+	 */
+	public function add_to_build_profiles() {
+		self::$build_profiles[] = $this;
+	}
+	public static function get_build_profiles() {
+		return self::$build_profiles;
 	}
 
 	/**
@@ -50,33 +62,6 @@ class Bundler {
 		}
 
 		return $keys;
-	}
-
-	/**
-	 * Call this from the build script. It writes the resulting files.
-	 */
-	public function write_files() {
-		foreach ($this->bundles as $bundle) {
-			$built = '';
-			foreach ($bundle['src'] as $file => $info) {
-				$filepath = $this->asset_path . $file;
-
-				if (!file_exists($filepath)) {
-					throw new Exception('D\'oh! File "'.$filepath.'" could not be found.', 1);
-				}
-
-				$file_contents = file_get_contents($filepath);
-				
-				// Do string replacements
-				$file_contents = strtr($file_contents, $info['replacements']);
-				
-				$built .= $file_contents;
-			}
-
-			$file = fopen($this->asset_path . $bundle['build'], 'w');
-			fwrite($file, $built);
-			fclose($file);
-		}
 	}
 }
 ?>
