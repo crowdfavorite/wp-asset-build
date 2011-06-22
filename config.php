@@ -1,6 +1,6 @@
 <?php
 $abspath = realpath(dirname(__FILE__)) . '/';
-require_once($abspath . 'build/Bundler.php');
+require_once($abspath . 'lib/Bundler.php');
 
 $bundler = new Bundler($abspath);
 
