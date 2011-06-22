@@ -34,6 +34,10 @@ Setting up bundles is easy using the `define_bundle()` and `add_to_bundle()` met
 	$bundler->add_to('bundle_name', 'common/css/base.css');
 	$bundler->add_to('bundle_name', 'common/css/main.css', array('../img/', '../../../common/img/'));
 
+At the very end, register your instance of Bundler to be built by the build script like so:
+
+	$bundler->add_to_build_profiles();
+
 To write the files, In the command line,
 
 	$ cd /path/to/build.php
@@ -42,4 +46,8 @@ then...
 	
 	$ php build.php
 
-That's it! Assuming PHP has write access, new files will be created for each bundle in the same directory as your old development files.
+By default, build.php will look for your config file at `./config.php`. You can specify a path to your config file like this, though:
+
+	$ php build.php --config=../path/to/config.php
+
+That's it! Assuming PHP has write access, new files will be created for each bundle in the same directory as your old development files. Your development files will not be touched.
