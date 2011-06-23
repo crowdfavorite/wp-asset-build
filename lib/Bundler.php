@@ -19,6 +19,9 @@ class Bundler {
 	public function add_to_build_profiles() {
 		self::$build_profiles[] = $this;
 	}
+	/**
+	 * Static function used by the build script to get bundles to build.
+	 */
 	public static function get_build_profiles() {
 		return self::$build_profiles;
 	}
