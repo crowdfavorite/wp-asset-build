@@ -2,15 +2,19 @@
 $abspath = realpath(dirname(__FILE__)) . '/';
 require_once($abspath . 'lib/Bundler.php');
 
-$bundler = new Bundler($abspath);
+/* EXAMPLE FUTURE API */
+// Create method must push instance into build profiles static property
+$bundler = Bundler::create($abspath);
 
-$bundle = 'commonjs';
-$bundler->define($bundle, 'common/js/build.js');
-$bundler->add_to($bundle, 'common/js/hoverIntent.js');
-$bundler->add_to($bundle, 'common/js/jquery.cookie.js');
-$bundler->add_to($bundle, 'common/js/superfish.js');
-$bundler->add_to($bundle, 'common/js/scripts.js');
+$bundle = new Bundle('/path-to/built/file.js')
+	->add('common/js/hoverIntent.js')
+	->add('common/js/jquery.cookie.js', array('../img/' => '../../common/img/'))
+	->add('common/js/superfish.js');
+	->add('common/js/scripts.js');
+$bundler->push($bundle);
+/* END EXAMPLE */
 
+/* Current api */
 $bundle = 'theberrycss';
 $bundler->define($bundle, 'theberry/css/build.css');
 $bundler->add_to($bundle, 'common/css/main.css', array('../img/' => '../../common/img/'));

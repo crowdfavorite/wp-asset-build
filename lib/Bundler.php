@@ -5,10 +5,16 @@ class Bundler {
 	public $bundles = array();
 	protected static $build_profiles;
 	
+	public static function create($asset_path_prefix = '') {
+		$ins = new Bundler($asset_path_prefix);
+		self::$build_profiles[] = $ins;
+		return $ins;
+	}
+	
 	/**
 	 * @param string $asset_path_prefix a path that asset paths should be prefixed with in order to find them on the file system.
 	 */
-	public function __construct($asset_path_prefix = '') {
+	protected function __construct($asset_path_prefix = '') {
 		$this->asset_path = $asset_path_prefix;
 	}
 	
