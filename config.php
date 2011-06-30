@@ -12,7 +12,23 @@ $bundle = new Bundle('/path-to/built/file.js')
 	->add('common/js/superfish.js');
 	->add('common/js/scripts.js');
 $bundler->push($bundle);
+
+
+$bundle1_css = new Bundle('package1/css/build.css');
+$bundle1_css->add('common_css', 'common/css/common.css');
+$bundle1_css->add('pkg1_css', 'package1/css/main.css');
+$bundler->push($bundle1_css);
+
+
+
+
 /* END EXAMPLE */
+
+
+
+
+
+
 
 /* Current api */
 $bundle = 'theberrycss';
