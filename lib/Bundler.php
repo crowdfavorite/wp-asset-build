@@ -26,25 +26,23 @@ class Bundler() {
 		$this->bundles[] = $bundle;
 	}
 	
-	public function get_bundle($my_bundle_key) {
-		return $this->bundles[$my_bundle_key];
-	}
 	public function get_bundle() {
 		return $this->bundles;
 	}
 	
 	public function get_bundled_paths() {
-		foreach ($this->bundles as $key => $bundle) {
+		foreach ($this->bundles as $bundle) {
 			$my_array[] = self::get_full_path($bundle->get_bundled_path());
 		}
 		return $my_array;
 	}
 	public function get_original_paths() {
-		foreach ($this->bundles as $key => $bundle) {
-			foreach($bundle->get_original_paths as $original_bundle_path) {
+		foreach ($this->bundles as $bundle) {
+			foreach($bundle->get_original_paths() as $original_bundle_path) {
 				$my_array[] = self::get_full_path($original_bundle_path);
 			}
 		}
+		return $my_array;
 	}
 	
 	// Utility Functions
@@ -72,10 +70,10 @@ class Bundle() {
 	}
 	public function get_original_paths() {
 		foreach($this->bundle_items as $bundle_item) {
-			$my_path = $bundle_item->get_path();
+			$my_array[] = $bundle_item->get_path();
 		}
 		
-		return $this->items;
+		return $my_array;
 	}
 }
 
@@ -84,7 +82,8 @@ class BundleItem() {
 	protected $path;
 	protected $replacements[];
 	
-	public function __construct($key, $my_path, $my_replacements = array()) {
+	public function __construct($my_key, $my_path, $my_replacements = array()) {
+		$this->key = $my_key;
 		$this->path = $my_path;
 		$this->replacements = $my_replacements;
 	}
