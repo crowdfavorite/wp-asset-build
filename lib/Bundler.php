@@ -26,7 +26,7 @@ class Bundler() {
 		$this->bundles[] = $bundle;
 	}
 	
-	public function get_bundle() {
+	public function get_bundles() {
 		return $this->bundles;
 	}
 	
@@ -86,6 +86,10 @@ class BundleItem() {
 		$this->key = $my_key;
 		$this->path = $my_path;
 		$this->replacements = $my_replacements;
+	}
+	
+	public function add_replacement($find, $replace) {
+		$this->replacements[] = $find => $replace;
 	}
 	
 	public function get_key() {
