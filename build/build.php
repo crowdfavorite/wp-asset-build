@@ -34,11 +34,12 @@ if (!class_exists('Bundler')) {
 /**
  * Call this from the build script. It writes the resulting files.
  */
+
 function write_files($bundler_instance) {
-	foreach ($bundler_instance->bundles as $bundle) {
+	foreach ($bundler_instance->get_bundles() as $bundle) {
 		$built = '';
-		foreach ($bundle['src'] as $file => $info) {
-			$filepath = $bundler_instance->asset_path . $file;
+		foreach ($bundle->get_bundle_items() as $bundle_item) {
+			$filepath = $bundler_instance->get_full_path($bundle_item->get_path());
 
 			if (!file_exists($filepath)) {
 				throw new Exception('D\'oh! File "'.$filepath.'" could not be found.', 1);
@@ -47,24 +48,18 @@ function write_files($bundler_instance) {
 			$file_contents = file_get_contents($filepath);
 			
 			// Do string replacements
-			$file_contents = strtr($file_contents, $info['replacements']);
+			$file_contents = strtr($file_contents, $bundle_item->get_replacements());
 			
 			$built .= $file_contents;
 		}
 
-		$file = fopen($bundler_instance->asset_path . $bundle['build'], 'w');
+		$file = fopen($bundler_instance->get_full_path($bundle->get_bundled_path()), 'w');
 		fwrite($file, $built);
 		fclose($file);
 	}
 }
 
-$bundler_instances = Bundler::get_build_profiles();
-if (empty($bundler_instances)) {
-	throw new Exception('You need to run the Bundler add_to_build_profiles() method on at least one Bundler instance.
-Otherwise I don\'t know what I should be building.', 1);
-}
-
-foreach ($bundler_instances as $bundler) {
+foreach (Bundler::$build_profiles as $bundler) {
 	write_files($bundler);
 }
 ?>

@@ -1,11 +1,11 @@
 <?php
 
-class Bundler() {
-	public static $build_profiles[];
+class Bundler {
+	public static $build_profiles = array();
 	
 	// Properties
 	protected $asset_path_prefix;
-	protected $bundles[];
+	protected $bundles = array();
 	protected $enabled;
 	
 	// Constructor
@@ -49,14 +49,14 @@ class Bundler() {
 	private static function add_trailing_slash($my_path) {
 		return (substr($my_path, -1)!='/')?$my_path.'/':$my_path;
 	}
-	private static function get_full_path($my_path_suffix) {
+	public function get_full_path($my_path_suffix) {
 		return $this->asset_path_prefix . $my_path_suffix;
 	}
 }
 
-class Bundle() {
+class Bundle {
 	protected $output_path;
-	protected $bundle_items[];
+	protected $bundle_items = array();
 	
 	public function __construct($my_path) {
 		$this->output_path = $my_path;
@@ -64,7 +64,12 @@ class Bundle() {
 	
 	public function add($bundle_item_key, $my_path) {
 		$this->bundle_items[$bundle_item_key] = new BundleItem($bundle_item_key, $my_path, $my_replacements = array());
+		return $this;
 	}
+	public function get_bundle_items() {
+		return $this->bundle_items;
+	}
+	
 	public function get_bundled_path() {
 		return $this->output_path;
 	}
@@ -77,10 +82,10 @@ class Bundle() {
 	}
 }
 
-class BundleItem() {
+class BundleItem {
 	protected $key;
 	protected $path;
-	protected $replacements[];
+	protected $replacements = array();
 	
 	public function __construct($my_key, $my_path, $my_replacements = array()) {
 		$this->key = $my_key;
@@ -89,7 +94,7 @@ class BundleItem() {
 	}
 	
 	public function add_replacement($find, $replace) {
-		$this->replacements[] = $find => $replace;
+		$this->replacements[$find] = $replace;
 	}
 	
 	public function get_key() {
