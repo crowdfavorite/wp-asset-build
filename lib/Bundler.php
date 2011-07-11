@@ -29,17 +29,19 @@ class Bundler {
 	public function get_bundles() {
 		return $this->bundles;
 	}
-	
+	public function get_path_prefix() {
+		return $asset_path_prefix;
+	}
 	public function get_bundled_paths() {
 		foreach ($this->bundles as $bundle) {
-			$my_array[] = self::get_full_path($bundle->get_bundled_path());
+			$my_array[$bundle->get_bundle_key] = $this->get_full_path($bundle->get_bundled_path());
 		}
 		return $my_array;
 	}
 	public function get_original_paths() {
 		foreach ($this->bundles as $bundle) {
-			foreach($bundle->get_original_paths() as $original_bundle_path) {
-				$my_array[] = self::get_full_path($original_bundle_path);
+			foreach($bundle->get_original_paths() as $original_bundle_key => $original_bundle_path) {
+				$my_array[$original_bundle_key] = $this->get_full_path($original_bundle_path);
 			}
 		}
 		return $my_array;
@@ -57,6 +59,7 @@ class Bundler {
 class Bundle {
 	protected $output_path;
 	protected $bundle_items = array();
+	protected $meta = array();
 	
 	public function __construct($my_path) {
 		$this->output_path = $my_path;
@@ -66,19 +69,39 @@ class Bundle {
 		$this->bundle_items[$bundle_item_key] = new BundleItem($bundle_item_key, $my_path, $my_replacements = array());
 		return $this;
 	}
+	public function get_bundle_key() {
+		$keys = array();
+		foreach($this->bundle_items as $bundle_item) {
+			$key[]=$bundle_item->get_key();
+		}
+		return implode('-', $key);
+	}
 	public function get_bundle_items() {
 		return $this->bundle_items;
 	}
-	
 	public function get_bundled_path() {
 		return $this->output_path;
 	}
 	public function get_original_paths() {
 		foreach($this->bundle_items as $bundle_item) {
-			$my_array[] = $bundle_item->get_path();
+			$my_array[$bundle_item->get_key()] = $bundle_item->get_path();
 		}
 		
 		return $my_array;
+	}
+	public function set_language($language) {
+		return $this->set_meta('language', $language);
+	}
+	public function get_language($language) {
+		return($this->meta['language'])?$this->meta['language']:'';
+	}
+	
+	public function set_meta($key, $value) {
+		$this->meta[$key] = $value;
+		return $this;
+	}
+	public function get_meta($key) {
+		return $this->meta[$key];
 	}
 }
 
