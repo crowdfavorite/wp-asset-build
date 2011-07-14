@@ -92,7 +92,7 @@ class Bundle {
 	public function set_language($language) {
 		return $this->set_meta('language', $language);
 	}
-	public function get_language($language) {
+	public function get_language() {
 		return($this->meta['language'])?$this->meta['language']:'';
 	}
 	
