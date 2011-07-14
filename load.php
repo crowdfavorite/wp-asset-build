@@ -49,36 +49,4 @@ function enqueue_bundle($language, $key, $path, $dependencies, $version) {
 	}
 }
 
-// if (SDAC_PRODUCTION) {
-// 	$file = $bundler->get_bundled_file($bundle);
-// 	wp_enqueue_style($bundle, $asset_url . $file, array(), SDAC_VER, 'screen');
-// 
-// 	$bundle = 'commonjs';
-// 	$file = $bundler->get_bundled_file($bundle);
-// 	wp_enqueue_script($bundle, $asset_url . $file, array('jquery'), SDAC_VER);
-// }
-// else {
-// 	$files = $bundler->get_original_files($bundle);
-// 	foreach ($files as $file) {
-// 		wp_enqueue_style($file, $asset_url . $file, array(), SDAC_VER, 'screen');
-// 	}
-// 	
-// 	$files = $bundler->get_original_files('commonjs');
-// 	foreach ($files as $file) {
-// 		wp_enqueue_script($file, $asset_url . $file, array('jquery'), SDAC_VER);
-// 	}
-// }
-// 
-// wp_enqueue_script( 'google_services', 'http://partner.googleadservices.com/gampad/google_service.js' );
-// 
-// // Glam ads
-// if ($blog['site_name'] == 'TheChive') {
-// 	wp_enqueue_script('glam', 'http://www2a.glam.com/mobile/detect.act?affiliateId=420105803', array(), null);
-// }
-// 
-// // "Social"
-// wp_enqueue_script('twitter', 'http://platform.twitter.com/widgets.js', array(), null, true);
-// wp_enqueue_script('googlebuzz', 'http://www.google.com/buzz/api/button.js', array(), null, true);
-// // Digg Widget
-// wp_enqueue_script( 'digg', 'http://widgets.digg.com/buttons.js', array(), null, true );
 ?>
