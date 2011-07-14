@@ -21,19 +21,20 @@ cfct_template_file('asset-builder', 'config');
 $asset_url = trailingslashit(get_bloginfo('template_url'));
 
 foreach (Bundler::$build_profiles as $bundler) {
-	$asset_url_prefix = $asset_url;
-	$bundles = $bundler->get_bundles();
-	foreach($bundles as $bundle) {
-		if (CFCT_PRODUCTION) {
-			enqueue_bundle($bundle->get_language(), $bundle->get_bundle_key(), $asset_url_prefix . $bundle->get_bundled_path(), $bundle->get_meta('dependencies'), CFCT_THEME_VERSION);
-		}
-		else {
-			foreach($bundle->get_bundle_items() as $bundle_item) {
-				enqueue_bundle($bundle->get_language(), $bundle_item->get_key(), $asset_url_prefix . $bundle_item->get_path(), array(), CFCT_THEME_VERSION);
+	if (!is_admin()) {
+		$asset_url_prefix = $asset_url;
+		$bundles = $bundler->get_bundles();
+		foreach($bundles as $bundle) {
+			if (CFCT_PRODUCTION) {
+				enqueue_bundle($bundle->get_language(), $bundle->get_bundle_key(), $asset_url_prefix . $bundle->get_bundled_path(), $bundle->get_meta('dependencies'), CFCT_THEME_VERSION);
 			}
-		}		
+			else {
+				foreach($bundle->get_bundle_items() as $bundle_item) {
+					enqueue_bundle($bundle->get_language(), $bundle_item->get_key(), $asset_url_prefix . $bundle_item->get_path(), array(), CFCT_THEME_VERSION);
+				}
+			}		
+		}
 	}
-
 }
 
 function enqueue_bundle($language, $key, $path, $dependencies, $version) {
