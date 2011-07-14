@@ -18,10 +18,11 @@ global $blog;
 
 cfct_template_file('asset-builder', 'config');
 
-$asset_url = trailingslashit(get_bloginfo('template_url'));
 
-foreach (Bundler::$build_profiles as $bundler) {
-	if (!is_admin()) {
+if (!is_admin()) {
+	$asset_url = trailingslashit(get_bloginfo('template_url'));
+	foreach (Bundler::$build_profiles as $bundler) {
+
 		$asset_url_prefix = $asset_url;
 		$bundles = $bundler->get_bundles();
 		foreach($bundles as $bundle) {
