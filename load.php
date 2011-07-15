@@ -31,7 +31,7 @@ if (!is_admin()) {
 			}
 			else {
 				foreach($bundle->get_bundle_items() as $bundle_item) {
-					enqueue_bundle($bundle->get_language(), $bundle_item->get_key(), $asset_url_prefix . $bundle_item->get_path(), array(), CFCT_THEME_VERSION);
+					enqueue_bundle($bundle->get_language(), $bundle_item->get_key(), $asset_url_prefix . $bundle_item->get_path(), $bundle->get_meta('dependencies'), CFCT_THEME_VERSION);
 				}
 			}		
 		}
