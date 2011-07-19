@@ -11,7 +11,7 @@
  * You can toggle between developer and production mode by setting SDAC_PRODUCTION true/false
  * in functions.php
  *
- * ALWAYS run build.php, turn of developer mode and commit result before deploying.
+ * ALWAYS run build.php, turn off developer mode and commit result before deploying.
  */
 // Using icky blog global to determine which assets to deliver for now.
 global $blog;
