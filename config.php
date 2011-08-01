@@ -3,7 +3,6 @@
 $abspath = realpath(realpath(dirname(__FILE__)) . '/../');
 require_once($abspath . '/asset-builder/lib/Bundler.php');
 
-/* EXAMPLE API */
 $bundler = Bundler::create($abspath);
 
 $bundle_css = new Bundle('css/build.css');
