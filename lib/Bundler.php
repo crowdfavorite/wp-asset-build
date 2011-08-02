@@ -67,7 +67,7 @@ class Bundler {
 	 * We're using this instead of trailingslashit, because Bundler is designed to work
 	 * outside of WordPress
 	 */
-	private static function add_trailing_slash($my_path) {
+	public static function add_trailing_slash($my_path) {
 		return (substr($my_path, -1)!='/')?$my_path.'/':$my_path;
 	}
 	
