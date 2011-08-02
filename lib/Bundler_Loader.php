@@ -68,8 +68,8 @@ class Bundler_Loader {
 			foreach($bundle->get_bundle_items() as $bundle_item) {
 				$this->enqueue(
 					$bundle->get_language(),
-					$bundle->get_bundle_key(),
-					$this->asset_url_prefix . $bundle->get_bundled_path(),
+					$bundle_item->get_key(),
+					$this->asset_url_prefix . $bundle_item->get_path(),
 					$bundle->get_meta('dependencies'),
 					$bundle->get_meta('ver')
 				);

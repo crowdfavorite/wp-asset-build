@@ -77,6 +77,7 @@ class Bundler {
 }
 
 class Bundle {
+	protected $bundle_key = null;
 	protected $output_path;
 	protected $bundle_items = array();
 	protected $meta = array();
@@ -90,12 +91,27 @@ class Bundle {
 		return $this;
 	}
 	
-	public function get_bundle_key() {
+	/**
+	 * Best to use this after configuring the bundle
+	 */
+	protected function manufacture_bundle_key() {
 		$keys = array();
 		foreach($this->bundle_items as $bundle_item) {
 			$key[]=$bundle_item->get_key();
 		}
-		return implode('-', $key);
+		return 'bundle-'.implode('-', $key);
+	}
+	
+	public function set_bundle_key($key) {
+		$this->bundle_key = (string) $key;
+		return $this;
+	}
+	
+	public function get_bundle_key() {
+		if (!$this->bundle_key) {
+			$this->bundle_key = $this->manufacture_bundle_key();
+		}
+		return $this->bundle_key;
 	}
 	
 	public function get_bundle_items() {
