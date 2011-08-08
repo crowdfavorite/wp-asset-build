@@ -144,7 +144,11 @@ class Bundle {
 	}
 	
 	public function get_meta($key) {
-		return $this->meta[$key];
+		$ret='';
+		if(isset($this->meta[$key])) {
+			$ret = $this->meta[$key];
+		}
+		return $ret;
 	}
 }
 
