@@ -20,7 +20,7 @@ class Bundler {
 	/**
 	 * Factory method. Use this to create a new Bundler.
 	 */
-	public function create($asset_path_prefix = '') {
+	public static function create($asset_path_prefix = '') {
 		$ins = new Bundler($asset_path_prefix);
 		
 		// Add to $build_profiles so we know what needs to be built
