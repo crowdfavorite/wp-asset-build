@@ -21,11 +21,15 @@
 Each site's configuration will likely be a little different. I've found it useful to structure assets like this:
 
 	assets/
-		config.php # Includes Builder.php. Defines the bundles.
-		load.php # Includes config.php. Handles enqueueing assets/bundles into WordPress.
-		build/
+		config.php
+		load.php
+		asset-build/ # This repo
+			config-example.php # Includes Builder.php. Defines the bundles.
+			load-example.php # Includes config.php. Handles enqueueing assets/bundles into WordPress.
 			build.php # Includes config.php. The command-line build script.
-			Bundler.php # This class keeps track of all the assets, bundles, and has a method to write files.
+			lib/
+				Bundler.php # This class keeps track of all the assets, bundles, and has a method to write files.
+				Bundler_Loader.php
 
 Setting up bundles is easy using the `define_bundle()` and `add_to_bundle()` methods. For example:
 	
@@ -46,7 +50,7 @@ then...
 	
 	$ php build.php
 
-By default, build.php will look for your config file at `./config.php`. You can specify a path to your config file like this, though:
+By default, build.php will look for your config file at `../config.php`. You can specify a path to your config file like this, though:
 
 	$ php build.php --config=../path/to/config.php
 
