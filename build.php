@@ -25,7 +25,13 @@ if (isset($args['config'])) {
 	$config_path = $args['config'];
 }
 else {
-	$config_path = '../config.php';
+	$config_path = dirname(__FILE__) . '/../config.php';
+	if (!file_exists($config_path)) {
+		$config_path = './config.php';
+	}
+	if (!file_exists($config_path)) {
+		$config_path = '../config.php';
+	}
 }
 require_once($config_path);
 
