@@ -21,9 +21,17 @@ $args = process_args($argv);
 
 /* Get the path to the config file.
 The config file is required to include the Bundler class */
-$config_path = 'config.php';
 if (isset($args['config'])) {
 	$config_path = $args['config'];
+}
+else {
+	$config_path = dirname(__FILE__) . '/../config.php';
+	if (!file_exists($config_path)) {
+		$config_path = './config.php';
+	}
+	if (!file_exists($config_path)) {
+		$config_path = '../config.php';
+	}
 }
 require_once($config_path);
 

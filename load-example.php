@@ -16,8 +16,7 @@
 // Using icky blog global to determine which assets to deliver for now.
 global $blog;
 
-cfct_template_file('asset-builder', 'config');
-
+cfct_template_file('assets', 'config');
 
 if (!is_admin()) {
 	$asset_url = trailingslashit(get_bloginfo('template_url'));
@@ -48,5 +47,3 @@ function enqueue_bundle($language, $key, $path, $dependencies, $version) {
 			break;
 	}
 }
-
-?>
