@@ -3,7 +3,10 @@
 if (__FILE__ == $_SERVER['SCRIPT_FILENAME']) { die('Sorry pal, this script ain\'t for web.'); }
 
 /**
- * http://pwfisher.com/nucleus/index.php?itemid=45
+ * parseArgs Command Line Interface (CLI) utility function.
+ * @usage               $args = parseArgs($_SERVER['argv']);
+ * @author              Patrick Fisher <patrick@pwfisher.com>
+ * @source              https://github.com/pwfisher/CommandLine.php
  */
 function process_args($argv){
 	array_shift($argv); $o = array();
